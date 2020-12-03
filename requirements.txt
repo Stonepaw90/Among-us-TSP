@@ -1,12 +1,6 @@
-numpy==1.18.5
-jmespath==0.10.0
-pywin32==228
-ortools==7.8.7959
-docutils==0.15.2
 streamlit==0.66.0
-pandas==1.1.1
 scipy==1.5.3
-wheel==0.35.1
-nltk==3.5
-pip==20.2.2
+pandas==1.1.1
+ortools==7.8.7959
+numpy==1.18.5
 Pillow==8.0.1
