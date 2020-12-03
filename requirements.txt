@@ -1,0 +1,12 @@
+pandas
+numpy
+string
+sklearn
+pandas_read_xml
+PIL
+collections
+scipy
+nltk
+itertools
+re
+time
