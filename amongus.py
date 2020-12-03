@@ -73,7 +73,7 @@ def drop_false(truths):
             [1227.721, 877.005, 1456.022, 737.174, 680.294, 466.154, 1801.888, 1251.319, 396.611, 402.244, 1538.441, 1097.133, 0, 1380.145, 0],
             [559.017, 503.287, 926.499, 1102.554, 1565.248, 970.824, 500, 291.548, 1637.834, 1202.082, 700, 950, 1380.145, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
-    st.write(dmatrix)
+    #st.write(dmatrix)
     #st.write(type(dmatrix[0][0]))
     false_list = list(filter(lambda i: not truths[i], range(len(truths))))
     placematrix = np.delete(placematrix, false_list, 0)
