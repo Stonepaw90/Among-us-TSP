@@ -10,4 +10,4 @@ nltk
 itertools
 re
 time
-ortools
+ortools.constraint_solver
