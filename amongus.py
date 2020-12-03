@@ -176,7 +176,7 @@ def print_solution(data, manager, routing, solution, places_list,  point_dict, i
 
     if len(df['Locations']) > 1:
         st.write(df[1:])
-        st.write(f"This will take {df['Times'].sum} seconds")
+        st.write(f"This will take {round(df['Times'].sum(), 4)} seconds")
 def main():
     """Entry point of the program."""
     # Instantiate the data problem.
