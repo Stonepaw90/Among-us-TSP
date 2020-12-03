@@ -10,28 +10,6 @@ from ortools.constraint_solver import pywrapcp
 
 st.sidebar.button("Re Run")
 import scipy
-"""
-prev = (1550, 800)
-if st.sidebar.checkbox("Are you dead yet?", value=False, key=None):
-    ghost_points =  [(1550, 800), (1297, 317), (1580, 1200), (875, 900), (400, 1000), (850, 500), (2200, 600), (1650, 550), (200, 650), (650, 650), (1800, 1000), (1230, 1060), (420, 320), (1800, 300)]
-    ghost_matrix = []
-    for i in ghost_points:
-        ghost_dist =[]
-        for m in ghost_points:
-            short_dist = round(math.dist(i, m), 3)
-            ghost_dist.append(np.float64(short_dist))
-        ghost_dist.append(np.float64(0))
-        ghost_matrix.append(ghost_dist)
-    ghost_matrix += np.zeros((1,len(ghost_matrix[0])))
-
-    #ghost_matrix = np.array(ghost_matrix, dtype='object')
-    print(ghost_matrix)
-    am_ghost = True
-else:
-    am_ghost = False
-    ghost_matrix = False
-"""
-#Anaconda
 #cd /D C:\Users\Abraham\miniconda3\envs\snowflakes\Scripts
 #streamlit run amongus.py
 
@@ -96,7 +74,7 @@ def drop_false(truths):
             [559.017, 503.287, 926.499, 1102.554, 1565.248, 970.824, 500, 291.548, 1637.834, 1202.082, 700, 950, 1380.145, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
     st.write(dmatrix)
-    st.write(type(dmatrix[0][0]))
+    #st.write(type(dmatrix[0][0]))
     false_list = list(filter(lambda i: not truths[i], range(len(truths))))
     placematrix = np.delete(placematrix, false_list, 0)
     #st.write("You have tasks in: \n")
@@ -105,7 +83,7 @@ def drop_false(truths):
     dmatrix = np.delete(dmatrix, false_list, 1)
     res = dict((k, new_bad_names[k]) for k in placematrix
                if k in new_bad_names)
-    st.write(dmatrix)
+    #st.write(dmatrix)
     return list(dmatrix), list(placematrix), pointmatrix, res
 
 def return_pathing_tuples(start, stop):
