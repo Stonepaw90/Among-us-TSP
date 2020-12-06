@@ -7,9 +7,11 @@ from PIL import Image, ImageDraw
 import math
 from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
+import scipy
 
 st.sidebar.button("Re Run")
-import scipy
+ghost = st.sidebar.checkbox("Are you a ghost?", value=False, key=None)
+
 
 #Anaconda
 #cd /D C:\Users\Abraham\miniconda3\envs\snowflakes\Scripts
@@ -29,20 +31,14 @@ def create_data_model(distance_matrix, starting):
 
 
 def drop_false(truths):
-    """
-    :param truths:
-    :param ghost_distances: Either False or a matrix
-    :return:
-    """
-
+    global ghost
     placematrix = np.array(['Admin', 'Cafeteria', 'Communcations', 'Electrical', 'Lower engines', 'Medbay', 'Navigation', 'O2',
                  'Reactor', 'Security', 'Shields', 'Storage', 'Upper engines', 'Weapons'])
     pointmatrix = np.array(['(1550, 730)', '(1297, 317)', '(1580, 1200)', '(900, 900)', '(400, 1000)', '(850, 500)', '(2200, 600)', '(1650, 550)', '(200, 650)', '(650, 650)', '(1800, 1000)', '(1230, 1060)', '(420, 320)', '(1800, 300)'])
     new_bad_names = {}
     for i in range(len(placematrix)):
         new_bad_names[placematrix[i]] = pointmatrix[i]
-    if not st.sidebar.checkbox("Are you dead yet?", value=False, key=None):
-        ghost = False
+    if not ghost:
         dmatrix = np.array([
             [0, 5.07, 7.57, 9.74, 11.35, 9.5, 13.01, 11.17, 15.16, 14.69, 7.62, 3.94, 10.75, 8.42, 0],
             [5.07, 0, 8.32, 10.49, 12.18, 5.25, 9.33, 7.1, 10.84, 10.52, 8.68, 5.1, 6.15, 4.23, 0],
@@ -61,7 +57,6 @@ def drop_false(truths):
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         ])
     else:
-        ghost = True
         dmatrix = np.array([
             [0, 545.25, 401.123, 682.367, 1167.262, 761.577, 680.074, 269.258, 1358.308, 912.414, 320.156, 412.311, 1227.721, 559.017, 0],
             [545.25, 0, 927.242, 719.703, 1127.43, 483.009, 946.308, 422.963, 1146.428, 727.666, 848.232, 746.015, 877.005, 503.287, 0],
