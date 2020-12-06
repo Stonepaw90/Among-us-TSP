@@ -10,6 +10,8 @@ from ortools.constraint_solver import pywrapcp
 
 st.sidebar.button("Re Run")
 import scipy
+
+#Anaconda
 #cd /D C:\Users\Abraham\miniconda3\envs\snowflakes\Scripts
 #streamlit run amongus.py
 
@@ -40,6 +42,7 @@ def drop_false(truths):
     for i in range(len(placematrix)):
         new_bad_names[placematrix[i]] = pointmatrix[i]
     if not st.sidebar.checkbox("Are you dead yet?", value=False, key=None):
+        ghost = False
         dmatrix = np.array([
             [0, 5.07, 7.57, 9.74, 11.35, 9.5, 13.01, 11.17, 15.16, 14.69, 7.62, 3.94, 10.75, 8.42, 0],
             [5.07, 0, 8.32, 10.49, 12.18, 5.25, 9.33, 7.1, 10.84, 10.52, 8.68, 5.1, 6.15, 4.23, 0],
@@ -58,11 +61,13 @@ def drop_false(truths):
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         ])
     else:
-        dmatrix = np.array([[0, 545.25, 401.123, 682.367, 1167.262, 761.577, 680.074, 269.258, 1358.308, 912.414, 320.156, 412.311, 1227.721, 559.017, 0],
+        ghost = True
+        dmatrix = np.array([
+            [0, 545.25, 401.123, 682.367, 1167.262, 761.577, 680.074, 269.258, 1358.308, 912.414, 320.156, 412.311, 1227.721, 559.017, 0],
             [545.25, 0, 927.242, 719.703, 1127.43, 483.009, 946.308, 422.963, 1146.428, 727.666, 848.232, 746.015, 877.005, 503.287, 0],
             [401.123, 927.242, 0, 766.176, 1196.829, 1011.385, 862.786, 653.758, 1485.564, 1080.463, 297.321, 376.962, 1456.022, 926.499, 0],
             [682.367, 719.703, 766.176, 0, 485.412, 400.78, 1358.538, 850.368, 719.809, 336.341, 930.39, 389.391, 737.174, 1102.554, 0],
-            [1167.262, 1127.43, 1196.829, 485.412, 0, 672.681, 1843.909, 1328.533, 403.113, 430.116, 1400, 832.1,  66, 680.294, 1565.248, 0],
+            [1167.262, 1127.43, 1196.829, 485.412, 0, 672.681, 1843.909, 1328.533, 403.113, 430.116, 1400, 832.166, 680.294, 1565.248, 0],
             [761.577, 483.009, 1011.385, 400.78, 672.681, 0, 1353.699, 801.561, 667.083, 250, 1073.546, 676.757, 466.154, 970.824, 0],
             [680.074, 946.308, 862.786, 1358.538, 1843.909, 1353.699, 0, 552.268, 2000.625, 1550.806, 565.685, 1073.546, 1801.888, 500, 0],
             [269.258, 422.963, 653.758, 850.368, 1328.533, 801.561, 552.268, 0, 1453.444, 1004.988, 474.342, 660.681, 1251.319, 291.548, 0],
@@ -72,19 +77,17 @@ def drop_false(truths):
             [412.311, 746.015, 376.962, 389.391, 832.166, 676.757, 1073.546, 660.681, 1108.603, 710.282, 573.149, 0, 1097.133, 950, 0],
             [1227.721, 877.005, 1456.022, 737.174, 680.294, 466.154, 1801.888, 1251.319, 396.611, 402.244, 1538.441, 1097.133, 0, 1380.145, 0],
             [559.017, 503.287, 926.499, 1102.554, 1565.248, 970.824, 500, 291.548, 1637.834, 1202.082, 700, 950, 1380.145, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
-    #st.write(dmatrix)
-    #st.write(type(dmatrix[0][0]))
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        ], dtype = object)
     false_list = list(filter(lambda i: not truths[i], range(len(truths))))
     placematrix = np.delete(placematrix, false_list, 0)
     #st.write("You have tasks in: \n")
-    pointmatrix = np.delete(pointmatrix, false_list, 0)
+    #pointmatrix = np.delete(pointmatrix, false_list, 0)
     dmatrix = np.delete(dmatrix, false_list, 0)
     dmatrix = np.delete(dmatrix, false_list, 1)
     res = dict((k, new_bad_names[k]) for k in placematrix
                if k in new_bad_names)
-    #st.write(dmatrix)
-    return list(dmatrix), list(placematrix), pointmatrix, res
+    return list(dmatrix), list(placematrix), pointmatrix, res, ghost
 
 def return_pathing_tuples(start, stop):
     pathing_matrix = [[[0], [(1297, 317), (1280, 728), (1550, 800)], [(1580, 1200), (1591, 1000), (1230, 1060), (1280, 728), (1550, 800)], [(1550, 800), (1280, 728), (1230, 1060), (820, 1156), (875, 900)], [(1550, 800), (1280, 728), (1230, 1060), (820, 1156), (650, 1013), (400, 1000)], [(1550, 800), (1280, 728), (1297, 317), (840, 300), (850, 500)], [(1550, 800), (1280, 728), (1297, 317), (1800, 300), (1821, 540), (2011, 600), (2200, 600)], [(1550, 800), (1280, 728), (1297, 317), (1800, 300), (1821, 540), (1650, 550)], [(1550, 800), (1280, 728), (1297, 317), (840, 300), (420, 320), (430, 630), (200, 650)], [(1550, 800), (1280, 728), (1297, 317), (840, 300), (420, 320), (430, 630), (650, 650)], [(1550, 800), (1280, 728), (1230, 1060), (1591, 1000), (1800, 1000)], [(1550, 800), (1280, 728), (1230, 1060)], [(1550, 800), (1280, 728), (1297, 317), (840, 300), (420, 320)], [(1550, 800), (1280, 728), (1297, 317), (1800, 300)]],
@@ -111,7 +114,7 @@ def return_pathing_tuples(start, stop):
 
 
 
-def print_solution(data, manager, routing, solution, places_list,  point_dict, im):
+def print_solution(data, manager, routing, solution, places_list,  point_dict, im, ghostval):
     """Prints solution on console."""
     max_route_distance = 0
     for vehicle_id in range(data['num_vehicles']):
@@ -146,37 +149,41 @@ def print_solution(data, manager, routing, solution, places_list,  point_dict, i
     draw = ImageDraw.Draw(im)
     prev = (1297, 317)
     ordered_points = []
+
     for location in best_route:
         ordered_points.append(point_dict[location])
+    if ghostval:
     #This is the straight line, no junctions version.
-    #for i in ordered_points:
-    #    i = i[1:-1]
-    #    i = tuple(map(int, i.split(', ')))
-    #    line = [prev, i]
-    #    draw.line(line, fill=128, width=23)
-    #    prev = i
-    #st.image(im, caption='Optimal Route', use_column_width=True)
-    starting_loc = "Cafeteria"
-    prev_loc = (1297, 317)
-
-    for i in best_route[1:]:
-
-        list_of_tuples = return_pathing_tuples(starting_loc, i)
-        starting_loc = i
-        try:
-            if list_of_tuples[0] != loctuple:
-                list_of_tuples.reverse()
-        except:
-            pass
-        for loctuple in list_of_tuples:
-            line = [prev_loc, loctuple]
+        for i in ordered_points:
+            i = i[1:-1]
+            i = tuple(map(int, i.split(', ')))
+            line = [prev, i]
             draw.line(line, fill=128, width=23)
-            prev_loc = loctuple
-    st.image(im, caption='Optimal Route', use_column_width=True)
+            prev = i
+        st.image(im, caption='Optimal Route', use_column_width=True)
+        units = "units"
+    else:
+        starting_loc = "Cafeteria"
+        prev_loc = (1297, 317)
 
+        for i in best_route[1:]:
+
+            list_of_tuples = return_pathing_tuples(starting_loc, i)
+            starting_loc = i
+            try:
+                if list_of_tuples[0] != loctuple:
+                    list_of_tuples.reverse()
+            except:
+                pass
+            for loctuple in list_of_tuples:
+                line = [prev_loc, loctuple]
+                draw.line(line, fill=128, width=23)
+                prev_loc = loctuple
+        st.image(im, caption='Optimal Route', use_column_width=True)
+        units = "seconds"
     if len(df['Locations']) > 1:
         st.write(df[1:])
-        st.write(f"This will take {round(df['Times'].sum(), 4)} seconds")
+        st.write(f"This will take {round(df['Times'].sum(), 4)} {units}")
 def main():
     """Entry point of the program."""
     # Instantiate the data problem.
@@ -193,7 +200,7 @@ def main():
         else:
            task_list.append(st.sidebar.checkbox(placelist[i], value=False, key=None))
     task_list.append(True)
-    dist_matrix, placelist, pointmatrix, pointdict = drop_false(task_list)
+    dist_matrix, placelist, pointmatrix, pointdict, ghostval = drop_false(task_list)
     starting = placelist.index("Cafeteria")
     data = create_data_model(dist_matrix, starting)
     # Create the routing index manager.
@@ -203,7 +210,6 @@ def main():
 
     # Create Routing Model.
     routing = pywrapcp.RoutingModel(manager)
-
 
     # Create and register a transit callback.
     def distance_callback(from_index, to_index):
@@ -220,12 +226,20 @@ def main():
 
     # Add Distance constraint.
     dimension_name = 'Distance'
-    routing.AddDimension(
-        transit_callback_index,
-        0,  # no slack
-        10000,  # vehicle maximum travel distance. Max is 5921 to go to all in my experience.
-        True,  # start cumul to zero
-        dimension_name)
+    if not ghostval:
+        routing.AddDimension(
+            transit_callback_index,
+            0,  # no slack
+            10000,  # vehicle maximum travel distance. Max is 5921 to go to all in my experience.
+            True,  # start cumul to zero
+            dimension_name)
+    else:
+        routing.AddDimension(
+            transit_callback_index,
+            0,  # no slack
+            1000000,  # vehicle maximum travel distance. Max is 5921 to go to all in my experience.
+            True,  # start cumul to zero
+            dimension_name)
     distance_dimension = routing.GetDimensionOrDie(dimension_name)
     distance_dimension.SetGlobalSpanCostCoefficient(100)
 
@@ -238,7 +252,8 @@ def main():
     solution = routing.SolveWithParameters(search_parameters)
     # Print solution on console.
     if solution:
-        print_solution(data, manager, routing, solution, placelist, pointdict, im)
+        print_solution(data, manager, routing, solution, placelist, pointdict, im, ghostval)
         #st.write(task_list)
 
-main()
+if __name__ == "__main__":
+    main()
