@@ -298,7 +298,7 @@ def print_solution(data, manager, routing, solution, places_list,  point_dict, i
                 st.write("Input your code or codes, with N for the nose symbol, H for the house symbol, \
                          and S for the squiggly symbol that looks like a dollar sign. This will show you the \
                          codes that you should guess.")
-                user_code1 = st.text_input("Input your first code", "")
+                user_code1 = st.text_input("Input your first code", "Example: 4H8N3SHN")
                 user_code2 = st.text_input("Input your second code", "")
                 user_code3 = st.text_input("Input your third code if you have one", "")
                 if not user_code2:
