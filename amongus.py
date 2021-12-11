@@ -197,8 +197,7 @@ def main():
     for i in range(len(placelist)):
         if placelist[i] == "Cafeteria":
             task_list.append(True)
-        elif i in [3,5,10]:
-           st.write(placelist[i])
+        elif i in [4,6,11]:
            task_list.append(st.sidebar.checkbox(placelist[i], value=True, key=None))
         else:
            task_list.append(st.sidebar.checkbox(placelist[i], value=False, key=None))
