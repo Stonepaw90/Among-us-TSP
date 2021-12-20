@@ -192,7 +192,9 @@ def main():
     placelist = ['Admin', 'Cafeteria', 'Communcations', 'Electrical', 'Lower engines', 'Medbay', 'Navigation', 'O2',
                  'Reactor', 'Security', 'Shields', 'Storage', 'Upper engines', 'Weapons']
     st.title("Among Us Task TSP")
-    st.header("By Abraham Holleran")
+    st.markdown('''
+### Coded by [Abraham Holleran](https://github.com/Stonepaw90) :sunglasses:
+''')
     task_list = []
     for i in range(len(placelist)):
         if placelist[i] == "Cafeteria":
