@@ -1,7 +1,7 @@
-ortools==9.8.3296 --install-option="--no-deps"
+ortools==7.8.7959 --install-option="--no-deps"
 click < 8.1
 scipy==1.5.3
 numpy==1.26.2
-streamlit==1.28.2
+streamlit==1.20.0
 pandas==2.1.3
 Pillow==10.1.0
