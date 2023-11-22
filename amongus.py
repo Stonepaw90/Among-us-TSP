@@ -5,13 +5,12 @@ import streamlit as st
 import pandas as pd
 from PIL import Image, ImageDraw
 
-from ortools.constraint_solver import routing_enums_pb2
-from ortools.constraint_solver import pywrapcp
+from ortools.constraint_solver import routing_enums_pb2, pywrapcp
 
 from distance_matrices import PATHING_MATRIX, GHOST_DISTANCE_MATRIX, ALIVE_DISTANCE_MATRIX
 
 st.sidebar.button("Re Run")
-ghost = st.sidebar.toggle("Are you a ghost?")
+ghost = st.sidebar.checkbox("Can you pass through walls?")
 
 def create_data_model(distance_matrix, starting):
     """Stores the data for the problem."""
@@ -95,8 +94,7 @@ def print_solution(data, manager, routing, solution, places_list,  point_dict, i
                 previous_index, index, vehicle_id)
             times += ' {} -> '.format(short_distance/100)
             best_times.append(short_distance/100)
-        d = {'Locations': best_route, 'Times': best_times[:-1]}
-        df = pd.DataFrame(data=d)
+
         plan_output = plan_output[:-4]
         plan_output += '\n\n'
         plan_output += times[:-12] + "\n\n"
@@ -139,9 +137,12 @@ def print_solution(data, manager, routing, solution, places_list,  point_dict, i
                 prev_loc = loctuple
         st.image(im, caption='Optimal Route', use_column_width=True)
         units = "seconds"
-    if len(df['Locations']) > 1:
-        st.write(df[1:])
-        st.write(f"This will take {round(df['Times'].sum(), 4)} {units}")
+    metric = "Distances" if ghostval else "Times"
+    d = {'Locations': best_route, metric: best_times[:-1]}
+    if len(best_route) > 1:
+        df = pd.DataFrame(data=d)
+        st.dataframe(d)
+        st.write(f"This will take {round(df[metric].sum(), 4)} {units}")
 
 
 
@@ -152,7 +153,7 @@ def main():
 
     placelist = ['Admin', 'Cafeteria', 'Communcations', 'Electrical', 'Lower engines', 'Medbay', 'Navigation', 'O2',
                  'Reactor', 'Security', 'Shields', 'Storage', 'Upper engines', 'Weapons']
-    st.title("Among Us Task Optimal Route Finder")
+    st.title("Among Us Optimal Route Finder")
     st.header("Coded By Abraham Holleran :sunglasses:")
     task_list = []
     for i in range(len(placelist)):
