@@ -1,4 +1,4 @@
-ortools==9.8.3296
+ortools==9.8.3296 --install-option="--no-deps"
 click < 8.1
 scipy==1.5.3
 numpy==1.26.2
