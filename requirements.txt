@@ -1,5 +1,5 @@
 click < 8.1
-streamlit==1.11.0
+streamlit==1.26.0
 scipy==1.5.3
 pandas==1.1.1
 ortools==7.8.7959
