@@ -1,7 +1,7 @@
+ortools==7.8.7959
 click < 8.1
 streamlit==1.20.0
 scipy==1.5.3
 pandas==1.1.1
-ortools==7.8.7959
 numpy==1.18.5
 Pillow==8.0.1
