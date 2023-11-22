@@ -10,7 +10,7 @@ from ortools.constraint_solver import pywrapcp
 import scipy
 
 st.sidebar.button("Re Run")
-ghost = st.sidebar.checkbox("Are you a ghost?", value=False, key=None)
+ghost = st.sidebar.toggle("Are you a ghost?")
 
 
 #Anaconda
